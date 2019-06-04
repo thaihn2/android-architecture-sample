@@ -1,13 +1,17 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
 android {
-  compileSdkVersion 28
-
-
+  compileSdkVersion build_versions.target_sdk
 
   defaultConfig {
-    minSdkVersion 15
-    targetSdkVersion 28
+    minSdkVersion build_versions.min_sdk
+    targetSdkVersion build_versions.target_sdk
     versionCode 1
     versionName "1.0"
 
@@ -25,8 +29,22 @@ android {
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-  implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
-  testImplementation 'junit:junit:4.12'
-  androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
+  implementation deps.kotlin.stdlib
+
+  implementation deps.app_compat
+  testImplementation deps.test.junit
+  androidTestImplementation deps.test.runner
+  androidTestImplementation deps.test.espresso
+
+  // lifecycle
+  implementation deps.lifecycle.extensions
+  implementation deps.lifecycle.java8
+
+  // Rx
+  implementation deps.rx.rx_android
+  implementation deps.rx.rx_java2
+
+  // Dagger
+  implementation deps.dagger.dagger
+  kapt deps.dagger.compiler
 }

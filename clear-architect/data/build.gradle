@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
   compileSdkVersion build_versions.target_sdk
 
@@ -27,11 +29,28 @@ android {
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+  implementation deps.modules.domain
+
   implementation deps.kotlin.stdlib
 
   implementation deps.app_compat
-  implementation deps.constraint_layout
   testImplementation deps.test.junit
   androidTestImplementation deps.test.runner
   androidTestImplementation deps.test.espresso
+
+  // Retrofit
+  implementation deps.retrofit.runtime
+  implementation deps.retrofit.gson
+
+  // Room
+  implementation deps.room.runtime
+  implementation deps.room.rxjava2
+
+  // Rx
+  implementation deps.rx.rx_android
+  implementation deps.rx.rx_java2
+
+  // Dagger
+  implementation deps.dagger.dagger
+  kapt deps.dagger.compiler
 }
